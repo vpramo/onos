@@ -62,7 +62,7 @@ class onos::install{
      target => '/opt/onos',
      follow_redirects => true,
      checksum => false,
-     user       => 'onos',
+     #user       => 'onos',
      src_target => '/usr/src',
      require => [Group['onos'], User['onos']],
   }
