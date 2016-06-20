@@ -23,16 +23,16 @@ exec{ 'onos boot features':
         path => "/usr/bin:/usr/sbin:/bin:/sbin",
         logoutput => "true",
 }->
-#file{ "${onos_home}/config/cluster.json":
-#
-#        ensure => file,
-#        content => template('onos/cluster.json.erb')
-#}
-#
-#file{ "${onos_home}/config/tablets.json":
-#        ensure => file,
-#        content => template('onos/tablets.json.erb'),
-#}
+file{ "${onos_home}/config/cluster.json":
+
+        ensure => file,
+        content => template('onos/cluster.json.erb')
+}->
+
+file{ "${onos_home}/config/tablets.json":
+        ensure => file,
+        content => template('onos/tablets.json.erb'),
+}->
 case $::operatingsystem {
    ubuntu:{
         file{'/etc/init/onos.conf':
