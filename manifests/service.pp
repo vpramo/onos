@@ -21,7 +21,7 @@ exec{ 'start onos':
 #}->
 exec{ 'sleep 100 to stablize onos':
         command => 'sudo sleep 100;'
-}->
+}
 
 ## create onos cluster
 if count($controllers_ip) > 1 {
@@ -31,7 +31,7 @@ if count($controllers_ip) > 1 {
   exec{ 'create onos cluster':
         command => "/opt/onos/bin/onos-form-cluster $ip1 $ip2 $ip3"
   }
-}->
+}
 exec{ 'install openflow feature':
         command => "/opt/onos/bin/onos 'feature:install onos-openflow'"
 }->
