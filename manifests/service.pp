@@ -12,7 +12,7 @@ Exec{
 #}->
 exec{ 'start onos':
         command => 'service onos start',
-        unless => 'service onos status | grep PID'
+        unless => 'service onos status | grep process'
 }->
 
 #service{ 'onos':
