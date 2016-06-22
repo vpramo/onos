@@ -64,7 +64,7 @@ exec{ 'set public port':
         before => EXEC['create onos cluster']
 }->
 exec{ 'stabalize features':
-        command => "sudo sleep 300",
+        command => "sudo sleep 30",
         before => EXEC['create onos cluster']
 }
 
