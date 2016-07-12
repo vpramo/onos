@@ -1,29 +1,21 @@
-class onos::service ($controllers_ip) {
+class onos::service ($controllers_ip,
+                     $install_features=false,) {
 
 Exec{
         path => "/usr/bin:/usr/sbin:/bin:/sbin",
         timeout => 360,
         logoutput => 'true',
 }
-#firewall {'215 onos':
-#      port   => [ 6633, 6640, 6653, 8181, 8101,9876],
-#      proto  => 'tcp',
-#      action => 'accept',
-#}->
 exec{ 'start onos':
         command => 'service onos start',
         unless => 'service onos status | grep process'
 }->
 
-#service{ 'onos':
-#        ensure => running,
-#        enable => true,
-#}->
 exec{ 'sleep 100 to stablize onos':
         command => 'sudo sleep 100;'
-}->
+}
 
-
+if $install_features {
 exec{ 'install openflow feature':
         command => "/opt/onos/bin/onos 'feature:install onos-openflow'",
         before => EXEC['create onos cluster']
@@ -68,6 +60,7 @@ exec{ 'stabalize features':
         before => EXEC['create onos cluster']
 }
 
+}
 if ($::onos_run == "true") {
   if ($::hostname =='onos-ctrl1') {
     if count($controllers_ip) > 1 {
