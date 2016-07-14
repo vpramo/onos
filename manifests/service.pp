@@ -13,6 +13,11 @@ exec{ 'start onos':
 
 exec{ 'sleep 100 to stablize onos':
         command => 'sudo sleep 100;'
+} ->
+
+exec{ 'app install openflow-base feature':
+        command => "/opt/onos/bin/onos 'app activate org.onosproject.openflow-base'",
+        before => EXEC['create onos cluster']
 }
 
 if $install_features {
