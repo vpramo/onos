@@ -13,16 +13,21 @@ exec{ 'start onos':
 
 exec{ 'sleep 100 to stablize onos':
         command => 'sudo sleep 100;'
-} ->
+} 
+
+if ($::hostname == 'onos-ctrl1') {
 
 exec{ 'app install openflow-base feature':
         command => "/opt/onos/bin/onos 'app activate org.onosproject.openflow-base'",
-        before => EXEC['create onos cluster']
+        before => EXEC['create onos cluster'],
+        require => Exec['sleep 100 to stablize onos']
 }->
 exec{ 'stabalize features':
         command => "sudo sleep 30",
         before => EXEC['create onos cluster']
 }
+}
+
 
 if $install_features {
 exec{ 'install openflow feature':
