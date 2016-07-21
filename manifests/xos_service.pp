@@ -1,4 +1,5 @@
 class onos::xos_service ($controllers_ip,
+                         $cluster_form = false,
                  ) {
 
 Exec{
@@ -30,6 +31,7 @@ exec{ 'stabalize features':
 if ($::onos_run == "true") {
   if ($::hostname =='onos-xos-ctrl1') {
     if count($controllers_ip) > 1 {
+      if $cluster_form {
       $ip1 = $controllers_ip[0]
       $ip2 = $controllers_ip[1]
       $ip3 = $controllers_ip[2]
@@ -37,6 +39,7 @@ if ($::onos_run == "true") {
            command => "/opt/onos/bin/onos-form-cluster $ip1  $ip2  $ip3",
             creates => '/opt/onos/config/cluster.json'
       }
+     }
     }else {
       exec{ 'create onos cluster':
            command => "date",
