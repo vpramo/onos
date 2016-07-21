@@ -40,6 +40,12 @@ if ($::onos_run == "true") {
             creates => '/opt/onos/config/cluster.json'
       }
      }
+      else {
+      exec{ 'create onos cluster':
+           command => "date",
+      }
+   }
+       
     }else {
       exec{ 'create onos cluster':
            command => "date",
