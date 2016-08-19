@@ -60,7 +60,7 @@ exec{ 'add onos auto start':
         logoutput => "true",
 }-> 
 exec{ 'set public port':
-        command => "/opt/onos/bin/onos 'externalportname-set -n vxlan0'",
+        command => "/opt/onos/bin/onos 'externalportname-set -n onos_port2'",
         before => EXEC['create onos cluster']
 }->
 exec{ 'stabalize features':
