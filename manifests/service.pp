@@ -59,10 +59,10 @@ exec{ 'add onos auto start':
         command => 'sudo echo "onos">>/opt/service',
         logoutput => "true",
 }-> 
-exec{ 'set public port':
-        command => "/opt/onos/bin/onos 'externalportname-set -n onos_port2'",
-        before => EXEC['create onos cluster']
-}->
+#exec{ 'set public port':
+#        command => "/opt/onos/bin/onos 'externalportname-set -n onos_port2'",
+#        before => EXEC['create onos cluster']
+#}->
 exec{ 'stabalize features':
         command => "sudo sleep 30",
         before => EXEC['create onos cluster']
