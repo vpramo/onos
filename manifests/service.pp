@@ -81,6 +81,10 @@ if ($::onos_run == "true") {
            command => "/opt/onos/bin/onos-form-cluster $ip1  $ip2  $ip3",
             creates => '/opt/onos/config/cluster.json'
       }
+    } else {
+      exec{ 'create onos cluster':
+           command => "date",
+      }
     }
     } else {
       exec{ 'create onos cluster':
