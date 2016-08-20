@@ -70,7 +70,7 @@ exec{ 'stabalize features':
 
 if ($::onos_run == "true") {
   if ($::hostname =='onos-ctrl1') {
-    if count($controllers_ip) > 1 {
+    if count($controllers_ip) > 2 {
       $ip1 = $controllers_ip[0]
       $ip2 = $controllers_ip[1]
       $ip3 = $controllers_ip[2]
