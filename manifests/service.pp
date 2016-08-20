@@ -1,4 +1,6 @@
-class onos::service ($controllers_ip) {
+class onos::service ($controllers_ip,
+                     $cluster_form = false,
+                     ) {
 
 Exec{
         path => "/usr/bin:/usr/sbin:/bin:/sbin",
@@ -71,12 +73,18 @@ exec{ 'stabalize features':
 if ($::onos_run == "true") {
   if ($::hostname =='onos-ctrl1') {
     if count($controllers_ip) > 2 {
+      if $cluster_form {
       $ip1 = $controllers_ip[0]
       $ip2 = $controllers_ip[1]
       $ip3 = $controllers_ip[2]
       exec{ 'create onos cluster':
            command => "/opt/onos/bin/onos-form-cluster $ip1  $ip2  $ip3",
             creates => '/opt/onos/config/cluster.json'
+      }
+    }
+    } else {
+      exec{ 'create onos cluster':
+           command => "date",
       }
     }
   }else{
