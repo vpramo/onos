@@ -20,7 +20,8 @@ Class['::onos::config'] -> Class['::onos::xos_service']
 } else {
 
  class {'::onos::service':
-      controllers_ip => $controllers_ip}
+      controllers_ip => $controllers_ip,
+      cluster_form   => $cluster_form }
 Class['::onos::config'] -> Class['::onos::service']
 }
 
