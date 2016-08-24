@@ -65,6 +65,10 @@ exec{ 'set public port':
         command => "/opt/onos/bin/onos 'externalportname-set -n private0'",
         before => EXEC['create onos cluster']
 }->
+exec{ 'set mac gateway':
+        command => "/opt/onos/bin/onos 'externalgateway-update -m "00:00:5e:00:01:01"'",
+        before => EXEC['create onos cluster']
+}->
 exec{ 'stabalize features':
         command => "sudo sleep 30",
         before => EXEC['create onos cluster']
