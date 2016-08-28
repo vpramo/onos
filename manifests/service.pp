@@ -13,7 +13,7 @@ Exec{
 #      action => 'accept',
 #}->
 
-if ($::onos_run == "false") {
+if ($::onos_run == "true") {
 exec{ 'start onos':
         command => 'service onos start',
         unless => 'service onos status | grep process'
