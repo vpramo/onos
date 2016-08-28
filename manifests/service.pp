@@ -12,6 +12,8 @@ Exec{
 #      proto  => 'tcp',
 #      action => 'accept',
 #}->
+
+if ($::onos_run == "false") {
 exec{ 'start onos':
         command => 'service onos start',
         unless => 'service onos status | grep process'
@@ -74,7 +76,7 @@ exec{ 'stabalize features':
         before => EXEC['create onos cluster']
 }
 
-if ($::onos_run == "true") {
+
   if ($::hostname =='onos-ctrl1') {
     if count($controllers_ip) > 2 {
       if $cluster_form {
