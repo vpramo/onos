@@ -53,7 +53,7 @@ exec{ 'sleep 10 to stablize onos features':
 }->
 exec{ 'install vtn feature':
         command => "/opt/onos/bin/onos 'feature:install onos-app-vtn-onosfw'",
-        unless => "/opt/onos/bin/onos 'feature:list -i | grep onosfw ",
+        unless => "/opt/onos/bin/onos 'feature:list -i | grep onosfw' ",
         before => EXEC['create onos cluster']
 }->
 exec{ 'add onos auto start':
