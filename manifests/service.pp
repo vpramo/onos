@@ -52,8 +52,8 @@ exec{ 'sleep 10 to stablize onos features':
         command => 'sudo sleep 10;'
 }->
 exec{ 'install vtn feature':
-        command => "/opt/onos/bin/onos 'app activate org.onosproject.vtn'",
-        unless => "/opt/onos/bin/onos 'apps -a -s' | grep vtn",
+        command => "/opt/onos/bin/onos 'feature:install onos-app-vtn-onosfw'",
+        unless => "/opt/onos/bin/onos 'feature:list -i | grep onosfw ",
         before => EXEC['create onos cluster']
 }->
 exec{ 'add onos auto start':
