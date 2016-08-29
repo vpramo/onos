@@ -45,7 +45,7 @@ exec{ 'install ovsdatabase feature':
 }->
 exec{ 'install onos-drivers-ovsdb feature':
         command => "/opt/onos/bin/onos 'app activate org.onosproject.drivers'",
-        unless => /opt/onos/bin/onos 'apps -a -s' | grep drivers",
+        unless => "/opt/onos/bin/onos 'apps -a -s' | grep drivers",
         before => EXEC['create onos cluster']
 }->
 exec{ 'sleep 10 to stablize onos features':
