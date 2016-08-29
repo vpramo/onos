@@ -30,26 +30,32 @@ exec{ 'sleep 100 to stablize onos':
 
 exec{ 'install openflow feature':
         command => "/opt/onos/bin/onos 'feature:install onos-openflow'",
+        unless => 'feature:list -i | grep onos-openflow',
         before => EXEC['create onos cluster']
 }->
 exec{ 'install openflow-base feature':
         command => "/opt/onos/bin/onos 'feature:install onos-openflow-base'",
+        unless => 'feature:list -i | grep onos-openflow-base',
         before => EXEC['create onos cluster']
 }->
 exec{ 'install onos-ovsdb-base feature':
         command => "/opt/onos/bin/onos 'feature:install onos-ovsdb-base'",
+        unless => 'feature:list -i | grep onos-ovsdb-base',
         before => EXEC['create onos cluster']
 }->
 exec{ 'install ovsdatabase feature':
         command => "/opt/onos/bin/onos 'feature:install onos-ovsdatabase'",
+        unless => 'feature:list -i | grep onos-ovsdatabase',
         before => EXEC['create onos cluster']
 }->
 exec{ 'install onos-ovsdb-provider-host feature':
        command => "/opt/onos/bin/onos 'feature:install onos-ovsdb-provider-host'",
+       unless => 'feature:list -i | grep onos-ovsdb-provider-host',
         before => EXEC['create onos cluster']
 }->
 exec{ 'install onos-drivers-ovsdb feature':
         command => "/opt/onos/bin/onos 'feature:install onos-drivers-ovsdb'",
+        unless => 'feature:list -i | grep onos-drivers-ovsdb',
         before => EXEC['create onos cluster']
 }->
 exec{ 'sleep 10 to stablize onos features':
@@ -57,6 +63,7 @@ exec{ 'sleep 10 to stablize onos features':
 }->
 exec{ 'install vtn feature':
         command => "/opt/onos/bin/onos 'feature:install onos-app-vtn-onosfw'",
+        unless => 'feature:list -i | grep onos-app-vtn-onosfw',
         before => EXEC['create onos cluster']
 }->
 exec{ 'add onos auto start':
