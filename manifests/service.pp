@@ -27,34 +27,29 @@ exec{ 'sleep 100 to stablize onos':
         command => 'sudo sleep 100;'
 }->
 
-
 exec{ 'install openflow feature':
-        command => "/opt/onos/bin/onos 'app activate org.onosproject.openflow-base'",
-        unless => "/opt/onos/bin/onos 'apps -a -s' | grep openflow-base",
-        before => EXEC['create onos cluster']
+        command => "/opt/onos/bin/onos 'feature:install onos-openflow'"
+}->
+exec{ 'install openflow-base feature':
+        command => "/opt/onos/bin/onos 'feature:install onos-openflow-base'"
 }->
 exec{ 'install onos-ovsdb-base feature':
-        command => "/opt/onos/bin/onos 'app activate org.onosproject.ovsdb-base'",
-        unless => "/opt/onos/bin/onos 'apps -a -s' | grep ovsdb-base",
-        before => EXEC['create onos cluster']
+        command => "/opt/onos/bin/onos 'feature:install onos-ovsdb-base'"
 }->
 exec{ 'install ovsdatabase feature':
-        command => "/opt/onos/bin/onos 'app activate org.onosproject.ovsdb'",
-        unless => "/opt/onos/bin/onos 'apps -a -s' | grep ovsdb",
-        before => EXEC['create onos cluster']
+        command => "/opt/onos/bin/onos 'feature:install onos-ovsdatabase'"
+}->
+exec{ 'install onos-ovsdb-provider-host feature':
+        command => "/opt/onos/bin/onos 'feature:install onos-ovsdb-provider-host'"
 }->
 exec{ 'install onos-drivers-ovsdb feature':
-        command => "/opt/onos/bin/onos 'app activate org.onosproject.drivers'",
-        unless => "/opt/onos/bin/onos 'apps -a -s' | grep drivers",
-        before => EXEC['create onos cluster']
+        command => "/opt/onos/bin/onos 'feature:install onos-drivers-ovsdb'"
 }->
 exec{ 'sleep 10 to stablize onos features':
         command => 'sudo sleep 10;'
 }->
 exec{ 'install vtn feature':
-        command => "/opt/onos/bin/onos 'feature:install onos-app-vtn-onosfw'",
-        unless => "/opt/onos/bin/onos 'feature:list -i' | grep onosfw ",
-        before => EXEC['create onos cluster']
+        command => "/opt/onos/bin/onos 'feature:install onos-app-vtn-onosfw'"
 }->
 exec{ 'add onos auto start':
         command => 'sudo echo "onos">>/opt/service',
